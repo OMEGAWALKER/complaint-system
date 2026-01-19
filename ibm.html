@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+
+        <aside class="glass-sidebar">
+            <div class="logo">
+                <i class="ri-shield-star-line"></i>
+                <span>Solviton</span>
+            </div>
+
+            <nav>
+                <ul>
+                    <li class="active" data-tab="dashboard">
+                        <i class="ri-dashboard-line"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li data-tab="new-complaint">
+                        <i class="ri-add-circle-line"></i>
+                        <span>New Complaint</span>
+                    </li>
+                    <li data-tab="history">
+                        <i class="ri-history-line"></i>
+                        <span>History</span>
+                    </li>
+                    <li data-tab="settings">
+                        <i class="ri-settings-4-line"></i>
+                        <span>Settings</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="user-profile">
+                <div class="avatar">
+                    <img src="https://ui-avatars.com/api/?name=User+Name&background=random&color=fff" alt="User">
+                </div>
+                <div class="user-info">
+                    <h4 id="displayUsername">Danny</h4>
+                    <p>Standard Access</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="glass-content">
+
+
+            <section id="dashboard" class="view active-view">
+                <header>
+                    <h1>Dashboard</h1>
+                    <div class="date-display" id="currentDate"></div>
+                </header>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon-box"><i class="ri-file-list-3-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Total</h3>
+                            <span id="total-count">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box pending"><i class="ri-time-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Pending</h3>
+                            <span id="pending-count">0</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="icon-box resolved"><i class="ri-check-double-line"></i></div>
+                        <div class="stat-info">
+                            <h3>Resolved</h3>
+                            <span id="resolved-count">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="recent-section">
+                    <h2>Recent Activities</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Subject</th>
+                                    <th>Category</th>
+                                    <th>Status</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recent-table-body">
+                                <tr>
+                                    <td colspan="5" class="empty-state">No complaints found.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="new-complaint" class="view">
+                <header>
+                    <h1>Submit Complaint</h1>
+                </header>
+
+                <div class="form-container">
+                    <form id="complaintForm">
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" placeholder="Brief summary of the issue" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                             <select id="category" required>
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="Technical">Technical Issue</option>
+                                    <option value="Billing">Billing & Payments</option>
+                                    <option value="Service">Service Quality</option>
+                                    <option value="Harassment">Harassment/Safety</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="priority">Priority</label>
+                                <select id="priority">
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" rows="6" placeholder="Describe the issue in detail..."
+                                required></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary"
+                                onclick="document.querySelector('[data-tab=dashboard]').click()">Cancel</button>
+                            <button type="submit" class="btn-primary">Submit Complaint</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+
+            <section id="history" class="view">
+                <header>
+                    <h1>Complaint History</h1>
+                    <div class="search-bar">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="searchInput" placeholder="Search complaints...">
+                    </div>
+                </header>
+
+                <div class="full-list-container">
+                    <div class="complaints-grid" id="complaintsGrid">
+                    </div>
+                </div>
+            </section>
+
+
+            <section id="settings" class="view">
+                <header>
+                    <h1>Settings</h1>
+                </header>
+                <div class="settings-content">
+                    <div class="form-container">
+                        <h2>User Profile</h2>
+                        <form id="settingsForm">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" placeholder="Enter your name" required>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="ibm.js"></script>
+</body>
+
+</html>
